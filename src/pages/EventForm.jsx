@@ -1,0 +1,71 @@
+import React, { useState } from 'react';
+import { db } from '../lib/firebase';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import Navbar from '../components/Navbar';
+
+function EventForm() {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [amount, setAmount] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!title || !description || !amount) {
+      alert('Please fill all fields');
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, 'events'), {
+        title,
+        description,
+        expectedSponsorshipAmount: Number(amount),
+        datePosted: Timestamp.now(),
+      });
+      alert('Event submitted!');
+      setTitle('');
+      setDescription('');
+      setAmount('');
+    } catch (err) {
+      console.error('Error adding event:', err);
+      alert('Submission failed');
+    }
+  };
+
+  return (
+    <>
+    <Navbar />
+    <div className="max-w-xl mx-auto mt-8 p-6 bg-white shadow rounded">
+      <h2 className="text-2xl font-bold mb-4">Post a New Event</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          placeholder="Event Title"
+          className="w-full p-2 border rounded"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <textarea
+          placeholder="Event Description"
+          className="w-full p-2 border rounded"
+          rows="4"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Expected Sponsorship Amount (INR)"
+          className="w-full p-2 border rounded"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+          Submit
+        </button>
+      </form>
+    </div>
+    </>
+  );
+}
+
+export default EventForm;
