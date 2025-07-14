@@ -10,6 +10,7 @@ function CompanyList() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [pitchMap, setPitchMap] = useState({});
   const [userRole, setUserRole] = useState(null);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -21,6 +22,7 @@ function CompanyList() {
     const fetchFirstEvent = async () => {
       const snapshot = await getDocs(collection(db, 'events'));
       const events = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      console.log(events);
       setSelectedEvent(events[0]); // Use first event
     };
 
@@ -42,6 +44,11 @@ function CompanyList() {
       alert("Login and create an event first.");
       return;
     }
+    const docSnap = await getDoc(doc(db, 'users', auth.currentUser.uid));;
+    const userDetails = docSnap.data();
+    console.log('hello')
+    console.log(company)
+
 
     try {
       const res = await fetch('http://localhost:5000/generate', {
@@ -51,15 +58,20 @@ function CompanyList() {
           event: selectedEvent,
           company,
           senderType: "student",
+          userDetails: {
+            name: userDetails?.name,
+            title: userDetails?.title,
+            organization: userDetails?.organization
+          }
         }),
       });
-
+      console.log(res.json())
       const data = await res.json();
       const pitch = data.pitch || "Error generating pitch.";
       setPitchMap((prev) => ({ ...prev, [company.id]: pitch }));
 
       await sendEmail({
-        to: company.email,
+        to: company.contactEmail,
         subject: `Sponsorship Opportunity: ${selectedEvent.title}`,
         text: pitch,
         fromName: auth.currentUser.email,

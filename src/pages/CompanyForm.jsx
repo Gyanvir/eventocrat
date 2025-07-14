@@ -9,6 +9,7 @@ function CompanyForm() {
   const [minBudget, setMinBudget] = useState('');
   const [maxBudget, setMaxBudget] = useState('');
   const [email, setEmail] = useState('');
+  const [contactPersonName, setContactPersonName] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,6 +80,13 @@ function CompanyForm() {
           className="w-full p-2 border rounded"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Contact Person Name"
+          className="w-full p-2 border rounded"
+          value={contactPersonName}
+          onChange={(e) => setContactPersonName(e.target.value)}
         />
         <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
           Submit

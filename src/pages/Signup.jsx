@@ -11,8 +11,10 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('student'); // default
-
+  const [contactName, setContactName] = useState('');
+  const [title, setTitle] = useState('');
   const [error, setError] = useState('');
+  const [organization, setOrganization] = useState('');
   const navigate = useNavigate();
 
 //   const handleSignup = async (e) => {
@@ -35,6 +37,9 @@ const Signup = () => {
     await setDoc(doc(db, "users", user.uid), {
       email: user.email,
       role: role,
+      contactName: contactName,
+      title: title,
+      organization: organization,
     });
 
     console.log("User role stored in Firestore.");
@@ -65,6 +70,30 @@ const Signup = () => {
           className="w-full p-2 border rounded dark:bg-gray-700"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Your Name"
+          className="w-full p-2 border rounded dark:bg-gray-700"
+          value={contactName}
+          onChange={(e) => setContactName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Enter Title or Position"
+          className="w-full p-2 border rounded dark:bg-gray-700"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Enter Organization Name"
+          className="w-full p-2 border rounded dark:bg-gray-700"
+          value={organization}
+          onChange={(e) => setOrganization(e.target.value)}
           required
         />
         <select

@@ -7,6 +7,10 @@ function EventForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
+  const [contactPersonName, setContactPersonName] = useState('');
+  const [estimatedAttendees, setEstimatedAttendees] = useState('');
+  const [contactDate, setContactDate] = useState('');
+  const [contactLocation, setContactLocation] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +24,17 @@ function EventForm() {
         title,
         description,
         expectedSponsorshipAmount: Number(amount),
+        contactPersonName,
         datePosted: Timestamp.now(),
       });
       alert('Event submitted!');
       setTitle('');
       setDescription('');
       setAmount('');
+      setContactPersonName('');
+      setEstimatedAttendees('');
+      setContactDate('');
+      setContactLocation('');
     } catch (err) {
       console.error('Error adding event:', err);
       alert('Submission failed');
@@ -58,6 +67,34 @@ function EventForm() {
           className="w-full p-2 border rounded"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Contact Person Name"
+          className="w-full p-2 border rounded"
+          value={contactPersonName}
+          onChange={(e) => setContactPersonName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Estimated Attendees"
+          className="w-full p-2 border rounded"
+          value={estimatedAttendees}
+          onChange={(e) => setEstimatedAttendees(e.target.value)}
+        />
+        <input
+          type="date"
+          placeholder="Contact Person Name"
+          className="w-full p-2 border rounded"
+          value={contactDate}
+          onChange={(e) => setContactDate(e.target.value)}
+        />
+        <input
+          type="location"
+          placeholder="Location"
+          className="w-full p-2 border rounded"
+          value={contactLocation}
+          onChange={(e) => setContactLocation(e.target.value)}
         />
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
           Submit
