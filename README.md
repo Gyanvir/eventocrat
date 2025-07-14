@@ -44,7 +44,7 @@ REACT_APP_BACKEND_URL=https://eventocrat-backend.onrender.com
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/yourusername/eventocrat-frontend.git
+git clone https://github.com/Gyanvir/eventocrat-frontend.git
 cd eventocrat-frontend
 npm install
 npm start
