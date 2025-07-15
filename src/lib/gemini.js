@@ -1,5 +1,5 @@
 export const generatePitch = async (event, company, senderType = "student") => {
-  const response = await fetch("http://localhost:5000/generate", {
+  const response = await fetch("https://eventocrat-backend.onrender.com/generate", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
