@@ -27,7 +27,7 @@ const CompanyDashboard = () => {
 
           {/* Section for available events */}
           <h2 className="text-2xl font-semibold mt-6 mb-3">
-            📬 Available Events to Sponsor
+            📬 Available Events to Sponsor ( Please List Sponsorship Interest before trying to send Proposal)
           </h2>
 
           {/* Event list component (filtered for company role) */}
